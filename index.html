@@ -16,11 +16,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>
     
     <!--ANAND NEW FILE ADD-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!--ANAND Script-->
     <script>
@@ -30,14 +34,37 @@
 
       $(document).ready(function () {
           $('#sidebarCollapse').on('click', function () {
-              $('#sidebar').toggleClass('active');
+              $('#sidebar, #content').toggleClass('active');
               $(this).toggleClass('active');
           });
       });
+
+      //--Anand Top--//
+      $(document).ready(function(){
+        $('body').append('<div id="toTop" class="btn btn-primary icon-chevron-up"></div>');
+        $(window).scroll(function () {
+          if ($(this).scrollTop() != 0) {
+            $('#toTop').fadeIn();
+          } else {
+            $('#toTop').fadeOut();
+          }
+        }); 
+
+        $('#toTop').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+      });
+      
     </script>
 
     <!--ANAND Style-->
     <style>
+      
+      .dropdown-item{
+        color: #7386d5;
+      }
+
       .blog-footer 
         {
           padding: 1rem 0;
@@ -117,13 +144,187 @@
         .sticky-top{
           top: 7px;
         }
+        
+        #toTop{
+          position: fixed;
+          bottom: 15px;
+          right: 15px;
+          height: 30px;
+          width: 60px;
+          cursor: pointer;
+          display: none;
+        }
+                
+        #toTop:hover {
+          bottom: 25px;
+          right: 15px;
+          height: 40px;
+          width: 60px;
+          transition: all 0.4s ease;
+          color: black;
+        }
+
+        a, a:hover, a:focus {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .navbar-btn {
+          box-shadow: none;
+          outline: none !important;
+          border: none;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px dashed #ddd;
+            margin: 40px 0;
+        }
+        
+        .wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        #sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 999;
+            background: #7386D5;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        #sidebar.active {
+            margin-left: -250px;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background: #6d7fcc;
+        }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+            border-bottom: 1px solid #47748b;
+        }
+
+        #sidebar ul p {
+            color: #fff;
+            padding: 10px;
+        }
+
+        #sidebar ul li a {
+            padding: 10px;
+            font-size: 1.1em;
+            display: block;
+        }
+
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+
+        #sidebar ul li.active>a,
+        a[aria-expanded="true"] {
+            color: #fff;
+        }
+
+        a[data-toggle="collapse"] {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+        }
+
+        ul.CTAs {
+            padding: 20px;
+        }
+
+        ul.CTAs a {
+            text-align: center;
+            font-size: 0.9em !important;
+            display: block;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        ul ul a {
+            font-size: 0.9em !important;
+            padding-left: 30px !important;
+            background: #6d7fcc;
+        }
+
+        a.download {
+            background: #fff;
+            color: #7386D5;
+        }
+
+        a.article, a.article:hover {
+            background: #6d7fcc !important;
+            color: #fff !important;
+        }
+
+        #content {
+            width: calc(100% - 250px);
+            transition: all 0.3s;
+            position: absolute;
+            right: 0;
+        }
+
+        #content.active {
+            width: 100%;
+        }
+
+        #sidebarCollapse {
+            width: 40px;
+            height: 40px;
+            background: white;
+            cursor: pointer;
+        }
+
+        #sidebarCollapse span {
+            width: 80%;
+            height: 2px;
+            margin: 0 auto;
+            display: block;
+            background: #555;
+            transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+            transition-delay: 0.2s;
+        }
+
+        #sidebarCollapse span:first-of-type {
+            transform: rotate(45deg) translate(2px, 2px);
+        }
+        
+        #sidebarCollapse span:nth-of-type(2) {
+            opacity: 0;
+        }
+
+        #sidebarCollapse span:last-of-type {
+            transform: rotate(-45deg) translate(1px, -1px);
+        }
+
+        #sidebarCollapse.active span {
+            transform: none;
+            opacity: 1;
+            margin: 5px auto;
+        }
 
     </style>
     
   </head>
 
   <body>
-
+      <div id="content">
 <!--ANAND Call-->
 <div class="modal fade" id="overlay">
     <div class="modal-dialog">
@@ -135,8 +336,10 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body">
-          <p>Anand Is Here</p>
-          <p>If You Say Something To Me....  <a><u>avrajsri@gmail.com</u></a> </p>
+          <p><h3 class="ml-3">Anand Is Here</h3></p>
+          <h5 class="ml-5">If You Say Something To Me...  
+          <a href="mailto:some@email.com" target="_blank" class="btn btn-primary ml-5">Email Us</a>
+          </h5>
         </div>
       </div>
     </div>
@@ -160,7 +363,7 @@
           <a class="nav-item nav-link" href="#">Features</a>
         </li>
         <li class="nav-item">
-          <a class="nav-item nav-link dropdown-toggle" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <a class="nav-item nav-link dropdown-toggle mr-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             Link
           </a>
         </li>
@@ -178,8 +381,8 @@
       </ul>
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-        <button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
+        <button class="btn btn-primary my-2 my-sm-0 mr-3" type="submit">Search</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
       </form>
               
     </div>
@@ -190,13 +393,13 @@
   <div class="socialbtns card card-body">
     <ul>
       <li><a href="https://www.facebook.com/Anand.vijay.Rajsri" class="fa fa-lg fa-facebook"></a></li>
-      <li><a href="#" class="fa fa-lg fa-twitter"></a></li>
-      <li><a href="#" class="fa fa-lg fa-google-plus"></a></li>
       <li><a href="https://github.com/avrajsri" class="fa fa-lg fa-github"></a></li>
-      <li><a href="#" class="fa fa-lg fa-pinterest"></a></li>
       <li><a href="https://www.linkedin.com/in/anand-vijay-rajsri-04520417b/" class="fa fa-lg fa-linkedin"></a></li>
-      <li><a href="#" class="fa fa-lg fa-instagram"></a></li>
-      <li><a href="#" class="fa fa-lg fa-youtube"></a></li>
+      <li><a href="https://www.instagram.com/anand.vijay.rajsri/" class="fa fa-lg fa-instagram"></a></li>
+      <li><a href="#" class="fa fa-lg fa-twitter"></a></li>
+      <li><a href="https://www.youtube.com/channel/UCkoerhW210IdcPL5-oeL5aQ" class="fa fa-lg fa-youtube"></a></li>
+      <li><a href="#" class="fa fa-lg fa-pinterest"></a></li>
+      <li><a href="https://plus.google.com/anand+vijay+rajsri" class="fa fa-lg fa-google-plus"></a></li>
     </ul>
 </div>
 
@@ -333,6 +536,13 @@
 <div class="nav-scroller navbar-dark sticky-top fixNav my-2 py-2 mx-2">
 
     <nav class="nav d-flex justify-content-between">
+      
+        <button type="button" id="sidebarCollapse" class="navbar-btn ml-2">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
       <a class="p-2 text-muted ml-2" href="#">World<span class="sr-only">(current)</span></a>
       <a class="p-2 text-muted" href="#">U.S.</a>
       <a class="p-2 text-muted" href="#">Technology</a>
@@ -349,32 +559,61 @@
     
   </div>
 
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar" >
+        <div class="sidebar-header">
+            <h3>Anand On Bootstrap</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#homeSubmenu" class="active">Home</a>
+            </li>
+            <li>
+                <a href="#">Blog</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="https://github.com/avrajsri/Bootstrap-Templates" class="download">Download source</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 <div class="jpg1"></div>
 
 <div class="nav-scroller py-1 mb-2 navbar-dark mx-2 my-2 text-center">
   <h2><u>Anand Vijay Rajsri</u></h2>
 </div>
-
-<div class="container">
-  <h2>Bootstrap</h2>
-  <p>Build responsive, mobile-first projects on the web with the world’s most popular front-end component library.</p>  
-
-  <div class="line"></div>
-
-  <h2>Introduction</h2>
-  <p>Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites, with BootstrapCDN and a template starter page.</p>
-
-  <div class="line"></div>
-
-  <p>Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful plugins built on jQuery. </p>
-
-  <div class="line"></div>
-
-  <h3>Important globals</h3>
-  <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles. Let’s dive in.</p>
-</div>
   
 <div class="jpg2"></div>
+
 
 <div class="my-5"></div>
 <!--ANAND Footer-->
